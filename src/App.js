@@ -1,12 +1,19 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Link,
   useRouteMatch,
-} from "react-router-dom";
-import "./App.css";
+} from 'react-router-dom';
+
+import RssFeedIcon from '@material-ui/icons/RssFeed';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import MailIcon from '@material-ui/icons/Mail';
+
+import Home from './components/Home/Home';
+
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -67,21 +74,20 @@ class App extends Component {
 
           <SwitchRoutes />
         </Router>
+
+        <footer className="main__footer">
+          {/* <p>Photo by Suzy Hazelwood from Pexels</p> */}
+          <p>September, 2020</p>
+          <MailIcon />
+          <GitHubIcon />
+          <RssFeedIcon />
+        </footer>
       </div>
     );
   }
 }
 
 export default App;
-
-function Home() {
-  return (
-    <div className="Home">
-      <h2>Home</h2>
-      <button>log In</button>
-    </div>
-  );
-}
 
 function Create() {
   return <h2>Create</h2>;
@@ -117,7 +123,7 @@ function MenuLink({ label, to, activeOnlyWhenExact, onClick }) {
   return (
     <Link
       onClick={onClick}
-      className={match ? " nav__link active" : "nav__link"}
+      className={match ? ' nav__link active' : 'nav__link'}
       to={to}
     >
       {label}
