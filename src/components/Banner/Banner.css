@@ -1,0 +1,22 @@
+.main__banner {
+  min-height: 70vh;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner__text {
+  min-height: 40vh;
+}
+
+.main__heading {
+  font-family: monospace;
+  font-size: 4rem;
+}
+.text__type {
+  font-size: 3rem;
+}
+.button {
+  align-self: baseline;
+}
