@@ -6,6 +6,8 @@ import {
   Link,
   useRouteMatch,
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import LoginForm from './components/LoginForm/LoginForm';
 
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -19,7 +21,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
     };
   }
   handleLogOut = (e) => {
@@ -109,6 +111,9 @@ class SwitchRoutes extends Component {
         </Route>
         <Route path="/read">
           <Read />
+        </Route>
+        <Route path="/login">
+          <LoginForm />
         </Route>
       </Switch>
     );
