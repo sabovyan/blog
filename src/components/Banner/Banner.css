@@ -1,13 +1,15 @@
 .main__banner {
-  min-height: 70vh;
+  min-height: 100vh;
+  width: 100%;
   padding: 10px;
-  margin: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .banner__text {
-  min-height: 40vh;
+  min-height: 25vh;
 }
 
 .main__heading {
@@ -17,6 +19,18 @@
 .text__type {
   font-size: 3rem;
 }
-.button {
-  align-self: baseline;
+.login__link {
+  padding: 1rem 2rem;
+  align-self: center;
+  font-size: 1.5rem;
+  text-decoration: none;
+  border: 1px solid var(--hilighted-color);
+  border-radius: 5px;
+  color: var(--hilighted-color);
+  background-color: white;
+  cursor: pointer;
+}
+.login__link:hover {
+  color: white;
+  background-color: var(--hilighted-color);
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import './Banner.css';
 
@@ -54,19 +54,9 @@ export default class Banner extends Component {
           <pre className="text__type">{innerText}</pre>
           <h1 className="main__heading">{done ? 'Markdown!' : ''}</h1>
         </div>
-        <Button
-          style={{
-            height: 48,
-            padding: '0 30px',
-            alignSelf: 'flex-start',
-            borderRadius: 5,
-            color: 'green',
-          }}
-          variant="outlined"
-          onClick={this.props.onClick}
-        >
+        <Link className="login__link" to="/login">
           Let's go
-        </Button>
+        </Link>
       </div>
     );
   }
