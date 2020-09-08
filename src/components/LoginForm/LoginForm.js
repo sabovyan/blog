@@ -8,115 +8,96 @@ import Button from '@material-ui/core/Button';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: green,
-  },
-});
+import { LOGIN_REGEX, PASSWORD_REGEX } from './constants/constants';
+
+/* TODO delete it after finishing the authentication and authorization */
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: green,
+//   },
+// });
 
 export default class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
     this.state = {
-      isLoginValidated: true,
-      isPasswordValidated: true,
-      open: false,
-      success: false,
-      alertSuccessMassage: 'Well Done you did it!',
-      userNameValue: window.localStorage.getItem('username') || '',
-      passwordValue: window.localStorage.getItem('password') || '',
+      theme: createMuiTheme({
+        palette: {
+          primary: green,
+        },
+      }),
+      userName: {
+        validated: true,
+        value: window.localStorage.getItem('username') || '',
+      },
+      password: {
+        validated: true,
+        value: window.localStorage.getItem('password') || '',
+      },
     };
   }
-  loginValidation(value) {
-    const reg = /[^0-9 ]{5,18}/gi;
-    const res = reg.test(value);
+  /* TODO change setstate */
+  validateInput = (regEx, value, field) => {
+    const validated = regEx.test(value);
 
-    if (!res) {
-      this.setState({
-        isLoginValidated: false,
-      });
-    } else {
-      this.setState({
-        isLoginValidated: true,
-      });
-    }
     this.setState({
-      userNameValue: value,
+      userName: {
+        validated,
+        value,
+      },
     });
-  }
+  };
 
+  /* SECTION login */
   handleLoginInput = ({ target: { value } }) => {
-    this.loginValidation(value);
+    this.validateInput(LOGIN_REGEX, value);
   };
 
   handleLoginFocus = () => {
     this.setState({
-      isLoginValidated: true,
+      userName: {
+        validated: true,
+      },
     });
   };
 
   handleLoginBlur = ({ target: { value } }) => {
-    this.loginValidation(value);
+    this.validateInput(LOGIN_REGEX, value);
   };
 
-  passwordValidation(value) {
-    const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,18}$/gm;
-    const res = reg.test(value);
-    if (!res) {
-      this.setState({
-        isPasswordValidated: false,
-      });
-    } else {
-      this.setState({
-        isPasswordValidated: true,
-      });
-    }
-    this.setState({
-      passwordValue: value,
-    });
-  }
-
+  /* SECTION password */
   handlePasswordInput = ({ target: { value } }) => {
-    this.passwordValidation(value);
+    this.validateInput(PASSWORD_REGEX, value);
   };
+
   handlePasswordFocus = () => {
     this.setState({
-      isPasswordValidated: true,
+      password: {
+        validated: true,
+      },
     });
   };
 
   handlePasswordBlur = ({ target: { value } }) => {
-    this.passwordValidation(value);
+    this.validateInput(PASSWORD_REGEX, value);
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { userName, password } = this.state;
 
-    if (this.state.isLoginValidated && this.state.isPasswordValidated) {
+    if (userName.validated && password.validated) {
       window.localStorage.setItem('password', this.state.passwordValue);
       window.localStorage.setItem('username', this.state.userNameValue);
       this.setState({
-        open: true,
-        success: true,
         userNameValue: '',
         passwordValue: '',
-      });
-    } else {
-      this.setState({
-        open: true,
-        success: false,
       });
     }
   };
 
   render() {
-    const {
-      isLoginValidated,
-      isPasswordValidated,
-      userNameValue,
-      passwordValue,
-    } = this.state;
+    const { userName, password } = this.state;
 
     return (
       <div className={styles.root}>
@@ -127,15 +108,15 @@ export default class LoginForm extends Component {
         >
           <h2 className={styles.title}>Login</h2>
 
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.state.theme}>
             <TextField
               className={styles.input}
-              error={!isLoginValidated}
+              error={!userName.validated}
               required
               id="outlined-required"
-              label={isLoginValidated ? 'username' : 'Error'}
+              label={userName.validated ? 'username' : 'Error'}
               variant="outlined"
-              value={userNameValue}
+              value={userName.value}
               onChange={this.handleLoginInput}
               onFocus={this.handleLoginFocus}
               onBlur={this.handleLoginBlur}
@@ -144,11 +125,11 @@ export default class LoginForm extends Component {
             <TextField
               required
               className={styles.input}
-              error={!isPasswordValidated}
+              error={!password.validated}
               id="outlined-password-input"
-              label={isPasswordValidated ? 'password' : 'Error'}
+              label={password.validated ? 'password' : 'Error'}
               type="password"
-              value={passwordValue}
+              value={password.value}
               autoComplete="current-password"
               variant="outlined"
               onChange={this.handlePasswordInput}
@@ -157,7 +138,7 @@ export default class LoginForm extends Component {
             />
             <Button
               type="submit"
-              disabled={isLoginValidated && isPasswordValidated ? false : true}
+              disabled={userName.validated && password.validated ? false : true}
               className={styles.submitBtn}
               variant="outlined"
               color="primary"

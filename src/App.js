@@ -6,14 +6,13 @@ import {
   Link,
   useRouteMatch,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import LoginForm from './components/LoginForm/LoginForm';
 
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import MailIcon from '@material-ui/icons/Mail';
 
 import Home from './components/Home/Home';
+import LoginForm from './components/LoginForm/LoginForm';
 
 import './App.css';
 
@@ -21,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
     };
   }
   handleLogOut = (e) => {
@@ -78,7 +77,6 @@ class App extends Component {
         </Router>
 
         <footer className="main__footer">
-          {/* <p>Photo by Suzy Hazelwood from Pexels</p> */}
           <p>September, 2020</p>
           <MailIcon />
           <GitHubIcon />
