@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  useRouteMatch,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -13,6 +7,8 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import Home from './components/Home/Home';
 import LoginForm from './components/LoginForm/LoginForm';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import MenuLink from './components/MenuLink/MenuLink';
 
 import './App.css';
 
@@ -20,28 +16,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      isLoggedIn: false,
     };
   }
   handleLogOut = () => {
     this.setState((prevState) => ({
-      loggedIn: !prevState.loggedIn,
-    }));
-  };
-
-  handleNavLinkActivation = (e) => {
-    if (!this.state.loggedIn) {
-      e.preventDefault();
-    }
-  };
-  handleLogin = () => {
-    this.setState((prevState) => ({
-      loggedIn: !prevState.loggedIn,
+      isLoggedIn: !prevState.isLoggedIn,
     }));
   };
 
   render() {
-    const { loggedIn } = this.state;
+    const { isLoggedIn } = this.state;
     return (
       <div className="App">
         <Router>
@@ -52,20 +37,12 @@ class App extends Component {
             <nav className="nav__main">
               <ul className="nav__list">
                 <li className="nav__list-item">
-                  <MenuLink
-                    onClick={this.handleNavLinkActivation}
-                    to="/create"
-                    label="Create"
-                  />
+                  <MenuLink to="/create" label="Create" />
                 </li>
                 <li className="nav__list-item">
-                  <MenuLink
-                    onClick={this.handleNavLinkActivation}
-                    to="/read"
-                    label="Read"
-                  />
+                  <MenuLink to="/read" label="Read" />
                 </li>
-                <li hidden={!loggedIn} className="nav__list-item">
+                <li hidden={!isLoggedIn} className="nav__list-item">
                   <Link
                     onClick={this.handleLogOut}
                     className="nav__link"
@@ -78,10 +55,20 @@ class App extends Component {
             </nav>
           </header>
 
-          <SwitchRoutes
-            handlesAuthStatus={this.handleLogOut}
-            hidden={loggedIn ? true : false}
-          />
+          <Switch>
+            <Route exact path="/">
+              <Home hidden={isLoggedIn} />
+            </Route>
+            <ProtectedRoute
+              path="/create"
+              isAuth={isLoggedIn}
+              component={Create}
+            />
+            <ProtectedRoute path="/read" isAuth={isLoggedIn} component={Read} />
+            <Route path="/login">
+              <LoginForm handlesAuthStatus={this.handleLogOut} />
+            </Route>
+          </Switch>
         </Router>
 
         <footer className="main__footer">
@@ -103,41 +90,4 @@ function Create() {
 
 function Read() {
   return <h2>Read</h2>;
-}
-
-class SwitchRoutes extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route exact path="/">
-          <Home hidden={this.props.hidden} />
-        </Route>
-        <Route path="/create">
-          <Create />
-        </Route>
-        <Route path="/read">
-          <Read />
-        </Route>
-        <Route path="/login">
-          <LoginForm handlesAuthStatus={this.props.handlesAuthStatus} />
-        </Route>
-      </Switch>
-    );
-  }
-}
-
-function MenuLink({ label, to, activeOnlyWhenExact, onClick }) {
-  let match = useRouteMatch({
-    path: to,
-    exact: activeOnlyWhenExact,
-  });
-  return (
-    <Link
-      onClick={onClick}
-      className={match ? ' nav__link active' : 'nav__link'}
-      to={to}
-    >
-      {label}
-    </Link>
-  );
 }
