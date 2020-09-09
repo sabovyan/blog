@@ -57,7 +57,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-              <Home hidden={isLoggedIn} />
+              <Home hiddenLink={isLoggedIn} />
             </Route>
             <ProtectedRoute
               path="/create"

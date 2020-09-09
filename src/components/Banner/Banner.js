@@ -15,7 +15,7 @@ export default class Banner extends Component {
 
   oneByOne = (interval) => {
     let i = 0;
-    const timer = setInterval(() => {
+    this.timerID = setInterval(() => {
       if (i === this.state.text.length - 1) {
         const backward = setInterval(() => {
           i--;
@@ -32,7 +32,7 @@ export default class Banner extends Component {
             innerText: this.state.text.concat().slice(0, i),
           });
         }, interval - 50);
-        clearInterval(timer);
+        clearInterval(this.timerID);
       }
       this.setState({
         innerText: this.state.text.concat().slice(0, i) + '|',
@@ -46,6 +46,10 @@ export default class Banner extends Component {
     this.oneByOne(150);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   render() {
     const { innerText, done } = this.state;
     return (
@@ -54,7 +58,11 @@ export default class Banner extends Component {
           <pre className="text__type">{innerText}</pre>
           <h1 className="main__heading">{done ? 'Markdown!' : ''}</h1>
         </div>
-        <Link hidden={this.props.hidden} className="login__link" to="/login">
+        <Link
+          hidden={this.props.hiddenLink}
+          className="login__link"
+          to="/login"
+        >
           Let's go
         </Link>
       </div>

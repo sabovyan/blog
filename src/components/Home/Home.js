@@ -7,7 +7,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <Banner hidden={this.props.hidden} />
+        <Banner hiddenLink={this.props.hiddenLink} />
       </div>
     );
   }
