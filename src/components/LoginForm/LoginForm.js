@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import { withRouter } from 'react-router-dom';
+
 import { TextField } from '@material-ui/core';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
 
 import styles from './LoginForm.module.css';
 import Button from '@material-ui/core/Button';
 
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
-
 import { LOGIN_REGEX, PASSWORD_REGEX } from './constants/constants';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,6 +94,7 @@ export default class LoginForm extends Component {
       });
     }
     this.props.handlesAuthStatus();
+    this.props.history.push('/create');
   };
 
   render() {
@@ -156,3 +159,5 @@ export default class LoginForm extends Component {
     );
   }
 }
+
+export default withRouter(LoginForm);
