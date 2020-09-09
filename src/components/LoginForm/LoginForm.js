@@ -136,7 +136,7 @@ export default class LoginForm extends Component {
               value={passwordValue}
               autoComplete="current-password"
               variant="outlined"
-              minlength="6"
+              minLength="6"
               onChange={this.handlePasswordInput}
               onFocus={this.handlePasswordFocus}
               onBlur={this.handlePasswordBlur}
