@@ -10,13 +10,6 @@ import { green } from '@material-ui/core/colors';
 
 import { LOGIN_REGEX, PASSWORD_REGEX } from './constants/constants';
 
-/* TODO delete it after finishing the authentication and authorization */
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: green,
-//   },
-// });
-
 export default class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -26,31 +19,25 @@ export default class LoginForm extends Component {
           primary: green,
         },
       }),
-      userName: {
-        validated: true,
-        value: window.localStorage.getItem('username') || '',
-      },
-      password: {
-        validated: true,
-        value: window.localStorage.getItem('password') || '',
-      },
+      userNameValidated: true,
+      userNameValue: window.localStorage.getItem('username') || '',
+
+      passwordValidated: true,
+      passwordValue: window.localStorage.getItem('password') || '',
     };
   }
-  /* TODO change setstate */
-  validateInput = (regEx, value, field) => {
-    const validated = regEx.test(value);
 
+  /* SECTION login */
+  validateLogin = (regEx, value) => {
+    const validated = regEx.test(value);
     this.setState({
-      userName: {
-        validated,
-        value,
-      },
+      userNameValidated: validated,
+      userNameValue: value,
     });
   };
 
-  /* SECTION login */
   handleLoginInput = ({ target: { value } }) => {
-    this.validateInput(LOGIN_REGEX, value);
+    this.validateLogin(LOGIN_REGEX, value);
   };
 
   handleLoginFocus = () => {
@@ -62,12 +49,22 @@ export default class LoginForm extends Component {
   };
 
   handleLoginBlur = ({ target: { value } }) => {
-    this.validateInput(LOGIN_REGEX, value);
+    this.validateLogin(LOGIN_REGEX, value);
   };
 
   /* SECTION password */
+
+  validatePassword = (regEx, value) => {
+    const validated = regEx.test(value);
+
+    this.setState({
+      passwordValidated: validated,
+      passwordValue: value,
+    });
+  };
+
   handlePasswordInput = ({ target: { value } }) => {
-    this.validateInput(PASSWORD_REGEX, value);
+    this.validatePassword(PASSWORD_REGEX, value);
   };
 
   handlePasswordFocus = () => {
@@ -79,14 +76,14 @@ export default class LoginForm extends Component {
   };
 
   handlePasswordBlur = ({ target: { value } }) => {
-    this.validateInput(PASSWORD_REGEX, value);
+    this.validatePassword(PASSWORD_REGEX, value);
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { userName, password } = this.state;
+    const { userNameValidated, passwordValidated } = this.state;
 
-    if (userName.validated && password.validated) {
+    if (userNameValidated && passwordValidated) {
       window.localStorage.setItem('password', this.state.passwordValue);
       window.localStorage.setItem('username', this.state.userNameValue);
       this.setState({
@@ -94,10 +91,16 @@ export default class LoginForm extends Component {
         passwordValue: '',
       });
     }
+    this.props.handlesAuthStatus();
   };
 
   render() {
-    const { userName, password } = this.state;
+    const {
+      userNameValidated,
+      userNameValue,
+      passwordValidated,
+      passwordValue,
+    } = this.state;
 
     return (
       <div className={styles.root}>
@@ -111,12 +114,13 @@ export default class LoginForm extends Component {
           <ThemeProvider theme={this.state.theme}>
             <TextField
               className={styles.input}
-              error={!userName.validated}
+              error={!userNameValidated}
               required
+              minLength="5"
               id="outlined-required"
-              label={userName.validated ? 'username' : 'Error'}
+              label={userNameValidated ? 'username' : 'Error'}
               variant="outlined"
-              value={userName.value}
+              value={userNameValue}
               onChange={this.handleLoginInput}
               onFocus={this.handleLoginFocus}
               onBlur={this.handleLoginBlur}
@@ -125,20 +129,21 @@ export default class LoginForm extends Component {
             <TextField
               required
               className={styles.input}
-              error={!password.validated}
+              error={!passwordValidated}
               id="outlined-password-input"
-              label={password.validated ? 'password' : 'Error'}
+              label={passwordValidated ? 'password' : 'Error'}
               type="password"
-              value={password.value}
+              value={passwordValue}
               autoComplete="current-password"
               variant="outlined"
+              minlength="6"
               onChange={this.handlePasswordInput}
               onFocus={this.handlePasswordFocus}
               onBlur={this.handlePasswordBlur}
             />
             <Button
               type="submit"
-              disabled={userName.validated && password.validated ? false : true}
+              disabled={userNameValidated && passwordValidated ? false : true}
               className={styles.submitBtn}
               variant="outlined"
               color="primary"

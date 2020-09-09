@@ -20,10 +20,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
     };
   }
-  handleLogOut = (e) => {
+  handleLogOut = () => {
     this.setState((prevState) => ({
       loggedIn: !prevState.loggedIn,
     }));
@@ -33,6 +33,11 @@ class App extends Component {
     if (!this.state.loggedIn) {
       e.preventDefault();
     }
+  };
+  handleLogin = () => {
+    this.setState((prevState) => ({
+      loggedIn: !prevState.loggedIn,
+    }));
   };
 
   render() {
@@ -73,7 +78,7 @@ class App extends Component {
             </nav>
           </header>
 
-          <SwitchRoutes />
+          <SwitchRoutes handlesAuthStatus={this.handleLogOut} />
         </Router>
 
         <footer className="main__footer">
@@ -111,7 +116,7 @@ class SwitchRoutes extends Component {
           <Read />
         </Route>
         <Route path="/login">
-          <LoginForm />
+          <LoginForm handlesAuthStatus={this.props.handlesAuthStatus} />
         </Route>
       </Switch>
     );
