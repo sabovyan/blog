@@ -54,7 +54,7 @@ export default class Banner extends Component {
           <pre className="text__type">{innerText}</pre>
           <h1 className="main__heading">{done ? 'Markdown!' : ''}</h1>
         </div>
-        <Link className="login__link" to="/login">
+        <Link hidden={this.props.hidden} className="login__link" to="/login">
           Let's go
         </Link>
       </div>

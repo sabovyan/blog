@@ -78,7 +78,10 @@ class App extends Component {
             </nav>
           </header>
 
-          <SwitchRoutes handlesAuthStatus={this.handleLogOut} />
+          <SwitchRoutes
+            handlesAuthStatus={this.handleLogOut}
+            hidden={loggedIn ? true : false}
+          />
         </Router>
 
         <footer className="main__footer">
@@ -107,7 +110,7 @@ class SwitchRoutes extends Component {
     return (
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home hidden={this.props.hidden} />
         </Route>
         <Route path="/create">
           <Create />
