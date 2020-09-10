@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { green, deepOrange } from '@material-ui/core/colors';
 
 export default class FormTheme extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ export default class FormTheme extends Component {
       theme: createMuiTheme({
         palette: {
           primary: green,
+          secondary: deepOrange,
         },
       }),
     };

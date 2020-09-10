@@ -3,7 +3,7 @@
   text-transform: uppercase;
   font-family: 'VT323', monospace;
   font-size: 3rem;
-  color: var(--hilighted-color);
+  color: var(--hiLighted-color);
 }
 
 .root {

@@ -24,13 +24,13 @@
   align-self: center;
   font-size: 1.5rem;
   text-decoration: none;
-  border: 1px solid var(--hilighted-color);
+  border: 1px solid var(--hiLighted-color);
   border-radius: 5px;
-  color: var(--hilighted-color);
+  color: var(--hiLighted-color);
   background-color: white;
   cursor: pointer;
 }
 .login__link:hover {
   color: white;
-  background-color: var(--hilighted-color);
+  background-color: var(--hiLighted-color);
 }
