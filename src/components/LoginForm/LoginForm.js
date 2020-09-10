@@ -4,23 +4,18 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import { TextField } from '@material-ui/core';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 
-import styles from './LoginForm.module.css';
 import Button from '@material-ui/core/Button';
 
+import styles from './LoginForm.module.css';
+
+import FormTheme from '../FormTheme/FormTheme';
 import { LOGIN_REGEX, PASSWORD_REGEX } from './constants/constants';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      theme: createMuiTheme({
-        palette: {
-          primary: green,
-        },
-      }),
       userNameValidated: true,
       userNameValue: window.localStorage.getItem('username') || '',
 
@@ -136,7 +131,7 @@ class LoginForm extends Component {
         >
           <h2 className={styles.title}>Login</h2>
 
-          <ThemeProvider theme={this.state.theme}>
+          <FormTheme>
             <TextField
               className={styles.input}
               error={!userNameValidated}
@@ -175,7 +170,7 @@ class LoginForm extends Component {
             >
               Sign In
             </Button>
-          </ThemeProvider>
+          </FormTheme>
         </form>
       </div>
     );
