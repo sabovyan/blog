@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -23,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: window.localStorage.getItem('isLoggedIn') || false,
+      isLoggedIn: Boolean(window.localStorage.getItem('isLoggedIn')) || false,
     };
   }
   handleLogOut = () => {
