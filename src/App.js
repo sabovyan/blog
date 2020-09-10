@@ -9,6 +9,7 @@ import Home from './components/Home/Home';
 import LoginForm from './components/LoginForm/LoginForm';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MenuLink from './components/MenuLink/MenuLink';
+import Create from './components/Create/Create';
 
 import './App.css';
 
@@ -83,10 +84,6 @@ class App extends Component {
 }
 
 export default App;
-
-function Create() {
-  return <h2>Create</h2>;
-}
 
 function Read() {
   return <h2>Read</h2>;
