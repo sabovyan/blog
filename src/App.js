@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  withRouter,
+} from 'react-router-dom';
 
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -17,7 +23,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: window.localStorage.getItem('isLoggedIn') || false,
     };
   }
   handleLogOut = () => {
@@ -25,6 +31,15 @@ class App extends Component {
       isLoggedIn: !prevState.isLoggedIn,
     }));
   };
+
+  componentDidMount() {
+    const { isLoggedIn } = this.state;
+    if (isLoggedIn) {
+      /* TODO not the best solution */
+      // eslint-disable-next-line no-restricted-globals
+      history.replaceState('/', '/create');
+    }
+  }
 
   render() {
     const { isLoggedIn } = this.state;

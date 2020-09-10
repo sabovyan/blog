@@ -32,10 +32,16 @@ class LoginForm extends Component {
   /* SECTION login */
   validateLogin = (regEx, value) => {
     const validated = regEx.test(value);
-    this.setState({
-      userNameValidated: validated,
-      userNameValue: value,
-    });
+    if (value.length < 5) {
+      this.setState({
+        userNameValidated: false,
+      });
+    } else {
+      this.setState({
+        userNameValidated: validated,
+        userNameValue: value,
+      });
+    }
   };
 
   handleLoginInput = ({ target: { value } }) => {
@@ -58,11 +64,16 @@ class LoginForm extends Component {
 
   validatePassword = (regEx, value) => {
     const validated = regEx.test(value);
-
-    this.setState({
-      passwordValidated: validated,
-      passwordValue: value,
-    });
+    if (value.length < 5 && value.length > 18) {
+      this.setState({
+        passwordValidated: false,
+      });
+    } else {
+      this.setState({
+        passwordValidated: validated,
+        passwordValue: value,
+      });
+    }
   };
 
   handlePasswordInput = ({ target: { value } }) => {
@@ -81,13 +92,24 @@ class LoginForm extends Component {
     this.validatePassword(PASSWORD_REGEX, value);
   };
 
+  addUser(user, password) {
+    window.localStorage.setItem('password', password);
+    window.localStorage.setItem('username', user);
+    window.localStorage.setItem('isLoggedIn', true);
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    const { userNameValidated, passwordValidated } = this.state;
+    const {
+      userNameValidated,
+      passwordValidated,
+      passwordValue,
+      userNameValue,
+    } = this.state;
 
     if (userNameValidated && passwordValidated) {
-      window.localStorage.setItem('password', this.state.passwordValue);
-      window.localStorage.setItem('username', this.state.userNameValue);
+      this.addUser(userNameValue, passwordValue);
+
       this.setState({
         userNameValue: '',
         passwordValue: '',
