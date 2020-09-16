@@ -5,13 +5,16 @@ import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import MailIcon from '@material-ui/icons/Mail';
 
-import Home from './components/Home/Home';
-import LoginForm from './components/LoginForm/LoginForm';
+import Login from './pages/Login/Login';
+import Create from './pages/Create/Create';
+import Home from './pages/Home/Home';
+import REgister from './pages/Register/Register';
+
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MenuLink from './components/MenuLink/MenuLink';
-import Create from './components/Create/Create';
 
 import './App.css';
+import Register from './pages/Register/Register';
 
 class App extends Component {
   constructor(props) {
@@ -76,7 +79,10 @@ class App extends Component {
             />
             <ProtectedRoute path="/read" isAuth={isLoggedIn} component={Read} />
             <Route path="/login">
-              <LoginForm handlesAuthStatus={this.handleLogOut} />
+              <Login handlesAuthStatus={this.handleLogOut} />
+            </Route>
+            <Route path="/register">
+              <Register />
             </Route>
           </Switch>
         </Router>
