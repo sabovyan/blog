@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Banner from '../Banner/Banner';
+import Banner from '../../components/Banner/Banner';
 // import LoginForm from '../LoginForm/LoginForm';
 
 export default class Home extends Component {

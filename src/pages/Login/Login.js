@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { TextField } from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
 
-import styles from './LoginForm.module.css';
+import styles from './Login.module.css';
 
-import FormTheme from '../FormTheme/FormTheme';
+import FormTheme from '../../components/FormTheme/FormTheme';
 import { LOGIN_REGEX, PASSWORD_REGEX } from './constants/constants';
 
-class LoginForm extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,7 +138,7 @@ class LoginForm extends Component {
               required
               minLength="5"
               id="outlined-required"
-              label={userNameValidated ? 'username' : 'Error'}
+              label={userNameValidated ? 'email' : 'Error'}
               variant="outlined"
               value={userNameValue}
               onChange={this.handleLoginInput}
@@ -172,9 +172,21 @@ class LoginForm extends Component {
             </Button>
           </FormTheme>
         </form>
+        <p>
+          if you don't have an account,{' '}
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: 'green',
+            }}
+            to="/register"
+          >
+            sign up
+          </Link>
+        </p>
       </div>
     );
   }
 }
 
-export default withRouter(LoginForm);
+export default withRouter(Login);

@@ -19,7 +19,14 @@
 .text__type {
   font-size: 3rem;
 }
-.login__link {
+
+.banner__links {
+  display: flex;
+  justify-content: space-around;
+  width: 400px;
+}
+
+.banner__link {
   padding: 1rem 2rem;
   align-self: center;
   font-size: 1.5rem;
@@ -29,8 +36,11 @@
   color: var(--hiLighted-color);
   background-color: white;
   cursor: pointer;
+  transition: flex-grow 1s ease;
+  flex-grow: 0;
 }
-.login__link:hover {
+.banner__link:hover {
   color: white;
   background-color: var(--hiLighted-color);
+  flex-grow: 1;
 }

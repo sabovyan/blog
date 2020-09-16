@@ -4,7 +4,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
-import FormTheme from '../FormTheme/FormTheme';
+import FormTheme from '../../components/FormTheme/FormTheme';
 
 import './Create.css';
 
