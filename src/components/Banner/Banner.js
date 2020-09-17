@@ -64,14 +64,14 @@ export default class Banner extends Component {
             className="banner__link"
             to="/login"
           >
-            login
+            Sign In
           </Link>
           <Link
             hidden={this.props.hiddenLink}
             className="banner__link"
-            to="/register"
+            to="/signup"
           >
-            register
+            Sign Up
           </Link>
         </div>
       </div>

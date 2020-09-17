@@ -129,7 +129,7 @@ class Login extends Component {
           className={styles.form}
           autoComplete="off"
         >
-          <h2 className={styles.title}>Login</h2>
+          <h2 className={styles.title}>Sign In</h2>
 
           <FormTheme>
             <TextField

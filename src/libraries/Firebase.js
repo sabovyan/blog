@@ -25,8 +25,24 @@ var firebaseConfig = {
 
 class Firebase {
   constructor() {
-    app.initializeApp(config);
+    app.initializeApp(firebaseConfig);
+
+    this.auth = app.auth();
   }
+  doCreateUserWithEmailAndPassword = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
+  doSignInWithEmailAndPassword = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+
+  doSignOut = () => this.auth.signOut();
 }
+
+export const FirebaseContext = React.createContext(null);
+
+export const withFirebase = (Component) => (props) => (
+  <FirebaseContext.Consumer>
+    {(firebase) => <Component {...props} firebase={firebase} />}
+  </FirebaseContext.Consumer>
+);
 
 export default Firebase;

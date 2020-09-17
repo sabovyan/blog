@@ -8,13 +8,12 @@ import MailIcon from '@material-ui/icons/Mail';
 import Login from './pages/Login/Login';
 import Create from './pages/Create/Create';
 import Home from './pages/Home/Home';
-import REgister from './pages/Register/Register';
+import SignUp from './pages/SignUp/SignUp';
 
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MenuLink from './components/MenuLink/MenuLink';
 
 import './App.css';
-import Register from './pages/Register/Register';
 
 class App extends Component {
   constructor(props) {
@@ -81,8 +80,8 @@ class App extends Component {
             <Route path="/login">
               <Login handlesAuthStatus={this.handleLogOut} />
             </Route>
-            <Route path="/register">
-              <Register />
+            <Route path="/signup">
+              <SignUp />
             </Route>
           </Switch>
         </Router>
