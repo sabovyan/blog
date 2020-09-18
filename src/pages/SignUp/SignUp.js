@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { withFirebase } from '../../libraries/Firebase';
 import Register from '../../components/Register/Register';
 
 export default function SignUpPage() {

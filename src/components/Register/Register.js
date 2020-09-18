@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Register.module.css';
@@ -11,125 +11,108 @@ import FormTheme from '../FormTheme/FormTheme';
 
 import { withFirebase } from '../../libraries/Firebase';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      email: '',
-      password: '',
-      error: null,
-    };
-  }
+function Register({ firebase }) {
+  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  /* SECTION userName */
+  const isInvalid = password === '' || email === '' || username === '';
 
-  onChange = ({ target }) => {
-    this.setState({
-      [target.name]: target.value,
-    });
-  };
+  const handleUserNameInput = ({ target: { value } }) => setUserName(value);
+  const handleEmailInput = ({ target: { value } }) => setEmail(value);
+  const handlePassword = ({ target: { value } }) => setPassword(value);
 
   /* SECTION submit */
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
-
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        this.setState({
-          email: '',
-          password: '',
-          username: '',
-        });
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
+    // firebase
+    //   .doCreateUserWithEmailAndPassword(email, password)
+    //   .then((authUser) => {
+    //     this.setState({
+    //       email: '',
+    //       password: '',
+    //       username: '',
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ error });
+    //   });
   };
 
   /*  componentWillUnmount() {
     this.props.firebase.unSubscribe();
   } */
 
-  render() {
-    const { email, password, username, error } = this.state;
-    const isInvalid = password === '' || email === '' || username === '';
-    return (
-      <div className={styles.root}>
-        <form
-          onSubmit={this.handleSubmit}
-          className={styles.form}
-          autoComplete="off"
-        >
-          <h2 className={styles.title}>Sign Up</h2>
+  return (
+    <div className={styles.root}>
+      <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
+        <h2 className={styles.title}>Sign Up</h2>
 
-          <FormTheme>
-            <TextField
-              name="username"
-              required
-              label="name"
-              variant="outlined"
-              value={username}
-              onChange={this.onChange}
-            />
+        <FormTheme>
+          <TextField
+            name="username"
+            required
+            label="name"
+            variant="outlined"
+            value={username}
+            onChange={handleUserNameInput}
+          />
 
-            <TextField
-              required
-              label="email"
-              name="email"
-              variant="outlined"
-              value={email}
-              onChange={this.onChange}
-            />
+          <TextField
+            required
+            label="email"
+            name="email"
+            variant="outlined"
+            value={email}
+            onChange={handleEmailInput}
+          />
 
-            <TextField
-              required
-              label="password"
-              type="password"
-              name="password"
-              value={password}
-              autoComplete="current-password"
-              variant="outlined"
-              onChange={this.onChange}
-            />
-            <Button
-              type="submit"
-              className={styles.submitBtn}
-              variant="outlined"
-              color="primary"
-              disabled={isInvalid}
-            >
-              Sign Up
-            </Button>
-          </FormTheme>
-          {error && (
-            <p
-              style={{
-                color: 'red',
-              }}
-            >
-              {error.message}
-            </p>
-          )}
-        </form>
-        <p>
-          if you have an account,{' '}
-          <Link
-            style={{
-              textDecoration: 'none',
-              color: 'green',
-            }}
-            to="/signin"
+          <TextField
+            required
+            label="password"
+            type="password"
+            name="password"
+            value={password}
+            autoComplete="current-password"
+            variant="outlined"
+            onChange={handlePassword}
+          />
+          <Button
+            type="submit"
+            className={styles.submitBtn}
+            variant="outlined"
+            color="primary"
+            disabled={isInvalid}
           >
-            Sign In
-          </Link>
-        </p>
-      </div>
-    );
-  }
+            Sign Up
+          </Button>
+        </FormTheme>
+        {error && (
+          <p
+            style={{
+              color: 'red',
+            }}
+          >
+            {error.message}
+          </p>
+        )}
+      </form>
+      <p>
+        if you have an account,{' '}
+        <Link
+          style={{
+            textDecoration: 'none',
+            color: 'green',
+          }}
+          to="/signin"
+        >
+          Sign In
+        </Link>
+      </p>
+    </div>
+  );
 }
 
 export default withRouter(withFirebase(Register));
