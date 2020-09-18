@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { TEXT } from './constants/constants';
 import { oneByOne } from './helper/function.helper';
 
@@ -23,12 +22,12 @@ export default function Banner() {
         <h1 className="main__heading">{done ? 'Markdown!' : null}</h1>
       </div>
       <div className="banner__links">
-        <Link className="banner__link" to="/signin">
+        <a className="banner__link" href="/signin">
           Sign In
-        </Link>
-        <Link className="banner__link" to="/signup">
+        </a>
+        <a className="banner__link" href="/signup">
           Sign Up
-        </Link>
+        </a>
       </div>
     </div>
   );
