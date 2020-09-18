@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useHistory } from 'react-router-dom';
 
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -15,19 +15,23 @@ import MenuLink from './components/MenuLink/MenuLink';
 import { useAuth } from './services/Authentication';
 
 import './App.css';
+import { auth } from 'firebase';
 
 function App() {
   const auth = useAuth();
+  const history = useHistory();
+
+  console.log(history);
   const handleLogOut = () => {
-    auth.signout();
+    auth.signout().then(() => {
+      history.push('/signin');
+    });
   };
-  console.log(auth);
+
   return (
     <div className="App">
-      <Router>
-        <Header auth={auth} handleLogOut={handleLogOut} />
-        <Switcher />
-      </Router>
+      <Header auth={auth} handleLogOut={handleLogOut} />
+      <Switcher auth={auth} />
 
       <Footer />
     </div>
@@ -77,14 +81,14 @@ function Header({ handleLogOut, auth }) {
   );
 }
 
-function Switcher({ handleLogOut }) {
+function Switcher({ handleLogOut, auth }) {
   return (
     <Switch>
       <Route exact path="/">
         <Home />
       </Route>
-      <ProtectedRoute path="/create" component={Create} />
-      <ProtectedRoute path="/read" component={Read} />
+      <ProtectedRoute isAuth={auth.user} path="/create" component={Create} />
+      <ProtectedRoute isAuth={auth.user} path="/read" component={Read} />
       <Route path="/signin">
         <Login handlesAuthStatus={handleLogOut} />
       </Route>

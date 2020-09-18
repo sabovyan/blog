@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import styles from './Register.module.css';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,7 @@ import { useAuth } from '../../services/Authentication';
 
 function Register() {
   const { signup } = useAuth();
+  const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,11 +27,11 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     signup(email, password)
-      .then((user) => console.log(user))
+      .then((user) => {
+        history.push('/create');
+      })
       .catch((error) => {
-        console.log(error.message);
         setError(error.message);
       });
   };

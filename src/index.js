@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { ProvideAuth } from './services/Authentication';
 
 ReactDOM.render(
   <React.StrictMode>
     <ProvideAuth>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ProvideAuth>
   </React.StrictMode>,
   document.getElementById('root')
