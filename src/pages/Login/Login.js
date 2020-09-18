@@ -179,7 +179,7 @@ class Login extends Component {
               textDecoration: 'none',
               color: 'green',
             }}
-            to="/register"
+            to="/signup"
           >
             sign up
           </Link>

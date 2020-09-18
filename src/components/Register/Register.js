@@ -48,8 +48,11 @@ class Register extends Component {
       .catch((error) => {
         this.setState({ error });
       });
-    this.props.history.push('/login');
   };
+
+  /*  componentWillUnmount() {
+    this.props.firebase.unSubscribe();
+  } */
 
   render() {
     const { email, password, username, error } = this.state;
@@ -119,7 +122,7 @@ class Register extends Component {
               textDecoration: 'none',
               color: 'green',
             }}
-            to="/login"
+            to="/signin"
           >
             Sign In
           </Link>

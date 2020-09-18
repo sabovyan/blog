@@ -9,7 +9,7 @@ export default function ProtectedRoute({
 }) {
   return (
     <Route path={path}>
-      {isAuth ? <Component {...props} /> : <Redirect to="/login" />}
+      {isAuth ? <Component {...props} /> : <Redirect to="/signin" />}
     </Route>
   );
 }
