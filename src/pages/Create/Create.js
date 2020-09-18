@@ -9,10 +9,6 @@ import FormTheme from '../../components/FormTheme/FormTheme';
 import './Create.css';
 
 class Create extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="create">

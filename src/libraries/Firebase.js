@@ -1,5 +1,4 @@
-import React from 'react';
-import app from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 const {
@@ -23,26 +22,6 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 
-class Firebase {
-  constructor() {
-    app.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-    this.auth = app.auth();
-  }
-  doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
-
-  doSignOut = () => this.auth.signOut();
-}
-
-export const FirebaseContext = React.createContext(null);
-
-export const withFirebase = (Component) => (props) => (
-  <FirebaseContext.Consumer>
-    {(firebase) => <Component {...props} firebase={firebase} />}
-  </FirebaseContext.Consumer>
-);
-
-export default Firebase;
+export default firebase;

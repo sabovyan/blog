@@ -12,16 +12,20 @@ import SignUp from './pages/SignUp/SignUp';
 
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MenuLink from './components/MenuLink/MenuLink';
+import { useAuth } from './services/Authentication';
 
 import './App.css';
 
 function App() {
-  const handleLogOut = () => {};
-
+  const auth = useAuth();
+  const handleLogOut = () => {
+    auth.signout();
+  };
+  console.log(auth);
   return (
     <div className="App">
       <Router>
-        <Header handleLogOut={handleLogOut} />
+        <Header auth={auth} handleLogOut={handleLogOut} />
         <Switcher />
       </Router>
 
@@ -47,7 +51,7 @@ function Footer() {
   );
 }
 
-function Header({ handleLogOut }) {
+function Header({ handleLogOut, auth }) {
   return (
     <header className="nav__header">
       <div className="nav__logo">
@@ -61,7 +65,8 @@ function Header({ handleLogOut }) {
           <li className="nav__list-item">
             <MenuLink to="/read" label="Read" />
           </li>
-          <li hidden className="nav__list-item">
+
+          <li hidden={!auth.user} className="nav__list-item">
             <Link onClick={handleLogOut} className="nav__link" to="/">
               Log out
             </Link>
