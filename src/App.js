@@ -5,7 +5,7 @@ import RssFeedIcon from '@material-ui/icons/RssFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import MailIcon from '@material-ui/icons/Mail';
 
-import Login from './pages/Login/Login';
+import SignIn from './pages/SignIn/SingIn';
 import Create from './pages/Create/Create';
 import Home from './pages/Home/Home';
 import SignUp from './pages/SignUp/SignUp';
@@ -15,16 +15,14 @@ import MenuLink from './components/MenuLink/MenuLink';
 import { useAuth } from './services/Authentication';
 
 import './App.css';
-import { auth } from 'firebase';
 
 function App() {
   const auth = useAuth();
   const history = useHistory();
 
-  console.log(history);
   const handleLogOut = () => {
     auth.signout().then(() => {
-      history.push('/signin');
+      history.push('/');
     });
   };
 
@@ -90,7 +88,7 @@ function Switcher({ handleLogOut, auth }) {
       <ProtectedRoute isAuth={auth.user} path="/create" component={Create} />
       <ProtectedRoute isAuth={auth.user} path="/read" component={Read} />
       <Route path="/signin">
-        <Login handlesAuthStatus={handleLogOut} />
+        <SignIn />
       </Route>
       <Route path="/signup">
         <SignUp />
