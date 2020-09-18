@@ -18,9 +18,6 @@ class Create extends Component {
             <TextField
               variant="outlined"
               label="title"
-              InputLabelProps={{
-                shrink: true,
-              }}
               className="create__field create__title"
               style={{
                 marginBottom: 10,

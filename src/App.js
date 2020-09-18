@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp/SignUp';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MenuLink from './components/MenuLink/MenuLink';
 import { useAuth } from './services/Authentication';
+import Loading from './components/Loading/Loading';
 
 import './App.css';
 
@@ -79,7 +80,7 @@ function Header({ handleLogOut, auth }) {
   );
 }
 
-function Switcher({ handleLogOut, auth }) {
+function Switcher({ auth }) {
   return (
     <Switch>
       <Route exact path="/">

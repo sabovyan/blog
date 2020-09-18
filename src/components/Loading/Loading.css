@@ -1,0 +1,42 @@
+.loading {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  z-index: 3;
+}
+
+.loading__inner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px;
+  background: radial-gradient(
+    circle at 40% 90%,
+    white 20%,
+    var(--hiLighted-color) 20%
+  );
+  transform: rotate(0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: spin 1s infinite;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--hiLighted-color);
+  border-radius: 50%;
+  background: white;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
