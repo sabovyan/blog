@@ -11,7 +11,7 @@
   text-transform: uppercase;
   font-family: 'VT323', monospace;
   font-size: 3rem;
-  background: linear-gradient(to bottom, grey 25%, var(--hiLighted-color));
+  background: linear-gradient(to top, grey 15%, var(--hiLighted-color));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -40,23 +40,25 @@
 .create__textarea:hover {
   border: 1px solid #242424;
 }
-.keywords__container {
+.input__container {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 .added-keywords {
-  min-width: 50%;
+  min-width: 100%;
   min-height: 60px;
   padding: 5px;
-  margin: 0 0 10px 20px;
+  margin: 0 0 10px;
   border: 1px solid #d8d8d8;
+  background: #fafafa;
   border-radius: 5px;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .added-keyword {
@@ -72,6 +74,7 @@
 .added-keyword:first-letter {
   color: green;
   font-size: 1.5rem;
+  cursor: text;
 }
 
 .added-keyword:hover {
@@ -91,4 +94,7 @@
 
 .delete-keyword:hover {
   color: #242424;
+}
+.added-keyword-input {
+  font-size: 1rem;
 }
