@@ -11,6 +11,9 @@ import './Create.css';
 function Create() {
   const [title, setTitle] = useState('');
   const [keywords, setKeywords] = useState('');
+
+  const handleKeywordsInput = ({ target: { value } }) => setKeywords(value);
+
   const [post, setPost] = useState('');
   const [tags, setTags] = useState([]);
   const [keywordError, setKeywordError] = useState(null);
@@ -27,6 +30,10 @@ function Create() {
 
   /* TODO check if this function needs useCallback */
   const handleTextAreaInput = ({ target: { value } }) => setPost(value);
+
+
+  const [tags, setTags] = useState([]);
+  const [keywordError, setKeywordError] = useState(null);
 
   const handleKeywordsEnter = (event) => {
     setKeywordError(null);
@@ -104,7 +111,11 @@ function Create() {
       }
     }
   };
+<<<<<<< HEAD
 
+=======
+  console.log(tags);
+>>>>>>> 3f98e5804f96a81a25daaf49a2ad6fdf622fdcba
   const handleTagInputBlur = (id) => (event) => {
     setTags((tags) =>
       tags.map((t) => (t.id === id ? { ...t, isEdit: !t.isEdit } : t))
