@@ -17,7 +17,24 @@ function Create() {
   const [post, setPost] = useState('');
   const handleTextAreaInput = ({ target: { value } }) => setPost(value);
 
-  const handleKeywordsEnter = () => {};
+  const [tags, setTag] = useState([]);
+  const handleKeywordsEnter = (event) => {
+    const { value } = event.target;
+    console.log(event.key);
+    if (event.key === 'Enter' || event.key === ' ') {
+      if (value.trim() !== '') {
+        const newTag = {
+          id: 0,
+          value,
+          isEdit: false,
+        };
+        setTag((t) => [...t, value.trim()]);
+        setKeywords('');
+      }
+    }
+  };
+
+  const handleKeywordDelete = () => {};
 
   return (
     <div className="create">
@@ -28,26 +45,42 @@ function Create() {
             value={title}
             onChange={handleTitleInput}
             variant="outlined"
-            label="title"
-            className="create__field create__title"
+            label="Title"
+            className="create__field create__field-title"
             style={{
               marginBottom: 10,
               width: '80%',
             }}
           />
-          <TextField
-            value={keywords}
-            onChange={handleKeywordsInput}
-            onKeyDown={handleKeywordsEnter}
-            variant="outlined"
-            label="keywords"
-            helperText="#Language #Topic #feature"
-            className="create__keywords create__field"
-            style={{
-              marginBottom: 10,
-              width: '80%',
-            }}
-          />
+          <div className="keywords__container">
+            <TextField
+              value={keywords}
+              onChange={handleKeywordsInput}
+              onKeyDown={handleKeywordsEnter}
+              variant="outlined"
+              label="Keywords"
+              helperText="#Language #Topic #feature"
+              className="create__keywords create__field"
+              style={{
+                marginBottom: 10,
+                width: '50%',
+              }}
+            />
+
+            <ul className="added-keywords">
+              {tags.map((tag) => (
+                <li className="added-keyword" key={tag}>
+                  <span>{`#${tag}`}</span>
+                  <span
+                    onClick={handleKeywordDelete}
+                    className="delete-keyword"
+                  >
+                    &#x292B;
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
           <textarea
             className="create__textarea"
             value={post}
@@ -94,3 +127,10 @@ function Create() {
 }
 
 export default Create;
+
+function getLastWord(value) {
+  const temp = value.trim().split(' ');
+  const result = temp.slice(-1);
+
+  return result;
+}
