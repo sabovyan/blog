@@ -4,7 +4,7 @@ import { oneByOne } from './helper/function.helper';
 
 import './Banner.css';
 
-export default function Banner() {
+export default function Banner({ auth }) {
   const [innerText, setInnerText] = useState('');
   const [done, setDone] = useState(false);
 
@@ -21,14 +21,16 @@ export default function Banner() {
         <pre className="text__type">{innerText}</pre>
         <h1 className="main__heading">{done ? 'Markdown!' : null}</h1>
       </div>
-      <div className="banner__links">
-        <a className="banner__link" href="/signin">
-          Sign In
-        </a>
-        <a className="banner__link" href="/signup">
-          Sign Up
-        </a>
-      </div>
+      {!auth ? (
+        <div className="banner__links">
+          <a className="banner__link" href="/signin">
+            Sign In
+          </a>
+          <a className="banner__link" href="/signup">
+            Sign Up
+          </a>
+        </div>
+      ) : null}
     </div>
   );
 }

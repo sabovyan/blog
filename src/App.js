@@ -83,7 +83,7 @@ function Switcher({ auth }) {
   return (
     <Switch>
       <Route exact path="/">
-        <Home />
+        <Home auth={auth.user} />
       </Route>
       <ProtectedRoute isAuth={auth.user} path="/create" component={Create} />
       <ProtectedRoute isAuth={auth.user} path="/read" component={Read} />

@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import Markdown from 'markdown-to-jsx';
+
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
@@ -14,6 +16,7 @@ function Create() {
   const [post, setPost] = useState('');
   const [tags, setTags] = useState([]);
   const [keywordError, setKeywordError] = useState(null);
+  const [postText, setPostText] = useState('');
 
   const handleTitleInput = useCallback(
     ({ target: { value } }) => setTitle(value),
@@ -109,12 +112,18 @@ function Create() {
       tags.map((t) => (t.id === id ? { ...t, isEdit: !t.isEdit } : t))
     );
   };
+  const [isPreviewActivated, setIsPreviewActivated] = useState(false);
+  const handlePostPreview = () => {
+    setIsPreviewActivated(!isPreviewActivated);
+    setPostText(post);
+  };
+  const isValid = title === '' || keywords === '' || post === '' || tags === [];
 
   return (
     <div className="create">
       <h1 className="create__title">Add your Post</h1>
-      <div className="create__form">
-        <FormTheme>
+      <FormTheme>
+        <div className="create__form">
           <div className="input__container">
             <TextField
               value={title}
@@ -161,7 +170,7 @@ function Create() {
             className="create__textarea"
             value={post}
             onChange={handleTextAreaInput}
-            rows={20}
+            rows={10}
             placeholder="Use markdown syntax for your post"
           />
 
@@ -175,6 +184,7 @@ function Create() {
             }}
           >
             <Button
+              disabled={isValid}
               color="primary"
               style={{
                 border: '1px solid',
@@ -186,6 +196,8 @@ function Create() {
               Submit
             </Button>
             <Button
+              // disabled={isValid}
+              onClick={handlePostPreview}
               color="default"
               style={{
                 flexGrow: 0.9,
@@ -196,8 +208,30 @@ function Create() {
               Preview
             </Button>
           </ButtonGroup>
-        </FormTheme>
-      </div>
+        </div>
+        <div
+          className="preview"
+          style={{
+            display: isPreviewActivated ? 'flex' : 'none',
+          }}
+        >
+          <div className="preview__inner">
+            <div className="preview__header">
+              <h3 className="preview__mode">Preview mode</h3>
+              <Button
+                onClick={() => setIsPreviewActivated(!isPreviewActivated)}
+                color="secondary"
+              >
+                Close
+              </Button>
+            </div>
+            <main>
+              <h1 className="preview__title">{title}</h1>
+              <Markdown>{postText}</Markdown>
+            </main>
+          </div>
+        </div>
+      </FormTheme>
     </div>
   );
 }
